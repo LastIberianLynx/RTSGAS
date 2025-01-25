@@ -7,6 +7,11 @@
 #include "RTSPawn.h"
 #include "UnitManager.h"
 
+void UMyChangeColorAbility::SetChangeColorParams(int32 InUnitIndex, FColor InColor)
+{
+	UnitIndex = InUnitIndex;
+	Color = InColor;
+}
 
 void UMyChangeColorAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
@@ -14,9 +19,7 @@ void UMyChangeColorAbility::ActivateAbility(const FGameplayAbilitySpecHandle Han
 	//Check if the actor has a valid reference
 	if (ARTSPawn* RTSPawn = Cast<ARTSPawn>(ActorInfo->AvatarActor.Get())) {
 		//Make unit change color
-		int32 unitIndexTest = 0;
-		FColor ColorTest = FColor::Red;
-		RTSPawn->UnitManager->ChangeColor(unitIndexTest, ColorTest);
+		RTSPawn->UnitManager->ChangeColor(UnitIndex, Color);
 	}
 	EndAbility(Handle, ActorInfo, ActivationInfo, true, false);
 
